@@ -17,102 +17,213 @@ public class SPPJDelgadoGA10 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int tamaño = solicitaDimensiones();
-        int[][] a = arreglo("A", tamaño);
-        int[][] b = arreglo("B", tamaño);
-
-        sumaMatriz(a, b);
-        restaMatriz(a, b);
+         sumadevectores();
     }
-
-    public static int solicitaEntero() {
-        Scanner kb = new Scanner(System.in);
-        boolean flag;
-        int n = 0;
-        do {
-            System.out.println("Introduce un número entero");
-            try {
-                n = kb.nextInt();
-                flag = false;
-
-            } catch (Exception er) {
-                System.out.println("Lo que introdujo no es un entero, Inténtalo de nuevo");
-                flag = true;
-                kb.nextLine();
-            }
-        } while (flag);
-
-        return n;
+   
+       public static void sumadevectores() {  
+        int r;
+        
+       r=TamMat();
+       
+       int [][]Matriz1 = GeneracionMatriz(r);
+       int[][]Matriz2 = GeneracionMatriz(r);
+       
+       MatricesSuma( Matriz1, Matriz2);
+       MatricesResta ( Matriz1, Matriz2);
+       MatricesMultiplicacion ( Matriz1, Matriz2);
+       
+}
+    
+    public static int  TamMat(){
+        int r;
+        System.out.println("Introduce tamaño de matrices");
+ r = SolicitaEntero();
+ return r;
+            
     }
+    
+    public static int [][] GeneracionMatriz(int r) {
+        Scanner kb = new Scanner (System.in);
+    int t;
+        int [][] Matriz = new int [r][r];
+        t = (r*r);
+        System.out.println("Introduce datos de matriz, capacidad de "+ t + " variables.");
+        
+        for (int i = 0; i < Matriz.length; i++ ) 
+        {
+        
+            
+            for (int j = 0; j < Matriz.length; j++) 
+            {
 
-    public static int solicitaDimensiones() {
-        Scanner key = new Scanner(System.in);
-        boolean flag;
-        int a = 0;
-        do {
-            try {
-                System.out.println("Escribe la dimensión de las matrices : ");
-                a = key.nextInt();
-                flag = false;
-            } catch (Exception e) {
-                System.out.println("Error");
-                key.next();
-                flag = true;
-            }
-        } while (flag);
-        return a;
-    }
+                System.out.println("Introduce varaible " + i +","+ j );
 
-    public static int[][] arreglo(String a, int tamaño) {
-        int[][] arreglo = new int[tamaño][tamaño];
-        System.out.println("Arreglo: " + a);
-        for (int i = 0; i < arreglo.length; i++) {
-            for (int j = 0; j < arreglo[i].length; j++) {
-                arreglo[i][j] = solicitaEntero();
+                Matriz[i][j]=SolicitaEntero();
+
             }
+       
         }
-        return arreglo;
+        
+        return Matriz;
+    
+    
     }
-    //realizar la suma de matrices en un metodo
-
-    public static int[][] sumaMatriz(int[][] a, int[][] b) {
-        int[][] resultado = new int[a.length][a.length];
-        System.out.println("Suma A+B: ");
-        for (int i = 0; i < a.length; i++) {
-            for (int j = 0; j < a[i].length; j++) {
-                resultado[i][j] = a[i][j] + b[i][j];
-                System.out.print(resultado[i][j] + " ");
+    
+   
+    
+    public static void MatricesSuma(int [][]Matriz1,int [][] Matriz2) {
+        System.out.println("La suma de matrices es: ");
+        
+        for(int i = 0; i <Matriz1.length; i++)
+        {
+            for(int j = 0; j <Matriz1.length; j++)
+            {
+                Matriz2[i][j]+= Matriz1[i][j];
+                
+                
+                System.out.print(Matriz2[i][j]+" ");
             }
             System.out.println("");
         }
-        return resultado;
+        
+        
+        
+        
+        
+    
     }
-
-    //Realizar resta de matrices
-    public static int[][] restaMatriz(int[][] a, int[][] b) {
-        int[][] resultado = new int[a.length][a.length];
-        System.out.println("Resta A-B: ");
-        for (int i = 0; i < a.length; i++) {
-            for (int j = 0; j < a[i].length; j++) {
-                resultado[i][j] = a[i][j] - b[i][j];
-                System.out.print(resultado[i][j] + " ");
+    
+    public static void error() {
+    
+        System.out.println("Usted no ha introducido un numero entero");
+        System.out.println("Se ha producido un error en la ejecucion del programa.");
+        System.out.println("El programa se ha detenido.");
+        System.out.println("******************************************************");
+        Salida();
+        
+    
+    }
+    
+    public static void Salida() {
+        Scanner kb = new Scanner (System.in);
+        int x;
+    
+        System.out.println("Inserta un numero para reiniciar.");
+        System.out.println("Inserta cualquier otra tecla para salir.");
+    
+    try {
+        x =kb.nextInt();
+        sumadevectores();
+    
+    }
+    catch (Exception ex) {
+        System.exit(0);
+            
+        }
+    
+    
+    
+    
+    
+    }
+    
+    public static int SolicitaEntero() {
+    
+    
+       
+   Scanner kb = new Scanner(System.in);
+   int e=0;
+        
+        
+        try {
+            
+            e =kb.nextInt();
+              
+        }
+        catch (Exception ex) {
+            
+           error();
+            
+        }
+        
+        return e;
+    
+    }
+    
+     public static void MatricesResta(int [][]Matriz1,int [][] Matriz2) {
+         
+        
+         System.out.println("La resta de matrices es: ");
+     
+       
+        for(int i = 0; i <Matriz1.length; i++)
+        {
+            for(int j = 0; j <Matriz1.length; j++)
+            {
+                    
+                Matriz2[i][j]-= Matriz1[i][j];
+                
+                
+                System.out.print(Matriz2[i][j]+" ");
             }
             System.out.println("");
         }
-        return resultado;
-    }
-
-    //Realizar multiplicación de matrices
-    public static int[][] multiplicaciónMatrizAB(int[][] a, int[][] b) {
-        int[][] resultado = new int[a.length][a.length];
-        System.out.println("Multiplicación A*B: ");
-        for (int i = 0; i < a.length; i++) {
-            for (int j = 0; j < a[i].length; j++) {
-                resultado[i][j] = resultado[i][j]+(a[i][j] * b[i][j]);
-                System.out.print(resultado[i][j] + " ");
-                    }
-                    System.out.println("");
-                }
-                return resultado;
-            }
-        }
+     }
+     
+     public static void MatricesMultiplicacion(int [][]a,int [][] b) {
+         
+         System.out.println("Calculo de Matriz 1 * Matriz 2.");
+         
+         
+         for ( int i = 0; i < a.length; i++) {
+         
+          for (int j = 0; j < a[1].length; j++  ) {
+         
+            for (int K =0; K< a.length; K++ ) {
+          
+                int Matriz3 = a[i][K] * b [K][j];
+                
+                System.out.println(Matriz3);
+           
+           
+          }
+            
+         
+         }
+         
+         
+         }
+         
+         
+             
+         
+         System.out.println("Calculo de Matriz 2 * Matriz 1.");
+         
+         
+         for ( int i = 0; i < a.length; i++) {
+         
+          for (int j = 0; j < a[1].length; j++  ) {
+         
+            for (int K =0; K< a.length; K++ ) {
+          
+                int Matriz3 = a[j][K] * b [K][i];
+                
+                System.out.println(Matriz3);
+           
+           
+          }
+            
+         
+         }
+         
+         
+         }
+           
+         
+     }
+    
+    
+    
+    
+    
+}
